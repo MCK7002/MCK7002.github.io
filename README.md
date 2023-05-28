@@ -56,6 +56,24 @@
         <p>May this year be your best one yet!</p>
         <p>Enjoy your special day to the fullest!</p>
     </div>
+
+    <script>
+        // Adjust the iframe height to match the window height
+        window.addEventListener('resize', function () {
+            var videoFrame = document.getElementById('video-frame');
+            videoFrame.style.height = window.innerHeight + 'px';
+        });
+
+        // Pause the video when the window is not visible
+        document.addEventListener('visibilitychange', function () {
+            var videoFrame = document.getElementById('video-frame');
+            if (document.visibilityState === 'visible') {
+                videoFrame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            } else {
+                videoFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            }
+        });
+    </script>
 </body>
 
 </html>
